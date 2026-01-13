@@ -4,7 +4,7 @@ ZBridge-Orchestrator is a Python-based automation suite for mainframe DevOps. It
 📂 Project Structure
 Plaintext
 
-VibeGarden/
+ZBridge-Orchestrator/
 ├── cobol/ # Main COBOL Source
 ├── copy/ # COBOL Copybooks
 ├── subprogs/ # Static and Dynamic Subprograms
@@ -48,3 +48,7 @@ MF_HOST - Mainframe Host Address
 
 📜 Logging & Audit
 Every step generates a detailed log file in the /logs directory containing the full JES spool output. This ensures that even if a job fails on the mainframe, the developer can debug the issue directly from their local IDE.
+
+## CI/CD Automation
+
+This project includes a `Jenkinsfile` for automated Mainframe orchestration. It automatically triggers the `build_and_run.py` script to compile COBOL, deploy to z/OS, and perform VSAM data validation.
