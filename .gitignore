@@ -1,0 +1,19 @@
+# Zowe and Mainframe Metadata
+.zosattributes
+metadata/
+scm_map.json
+
+# Local Environment Logs
+logs/
+*.log
+
+# Transactional Data and Python Cache
+data/transactions.txt
+scripts/__pycache__/
+__pycache__/
+
+# IDE and System Settings
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
