@@ -25,7 +25,7 @@ pipeline {
             steps {
                 echo 'Starting Mainframe Build, Run, and VSAM Validation...'
                 // Use 'bat' for Windows and pass credentials as arguments just like your last project
-                bat "python scripts/build_and_run.py --user %MF_CREDS_USR% --passw %MF_CREDS_PSW%"
+                bat "python scripts/build_and_run.py --user %MF_CREDS_USR% --pass %MF_CREDS_PSW%"
             }
         }
     }
