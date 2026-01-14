@@ -3,8 +3,8 @@ import subprocess
 import datetime
 import time
 import re
-import argparse
 import sys
+import shutil
 from check_vsam import verify_vsam_content
 
 # ==============================================================================
@@ -87,6 +87,35 @@ def run_zos_job(jcl_file, step_name):
 # ==============================================================================
 
 def main():
+    # --- STEP 0: WORKSPACE CLEANUP ---
+    # We remove the old data folder so we are 100% sure we are testing new data
+    data_dir = "data"
+    if os.path.exists(data_dir):
+        print(f"--- Cleaning up old workspace data: {data_dir} ---")
+        shutil.rmtree(data_dir)
+
+    os.makedirs(data_dir, exist_ok=True)
+
+    # --- STEP 1: GENERATE DATA ---
+    print("--- Executing gen_data.py to create fresh transactions ---")
+    try:
+        # sys.executable ensures it uses the same Python Jenkins is using
+        # We use the relative path to your script
+        gen_script = os.path.join("scripts", "gen_data.py")
+        subprocess.run([sys.executable, gen_script], check=True)
+
+        target_file = os.path.join(data_dir, "transactions.txt")
+        if os.path.exists(target_file):
+            print(f"SUCCESS: {target_file} generated in workspace.")
+        else:
+            print("ERROR: gen_data.py finished but transactions.txt is missing!")
+            sys.exit(1)
+
+    except subprocess.CalledProcessError as e:
+        print(f"CRITICAL ERROR: scripts/gen_data.py failed: {e}")
+        sys.exit(1)
+
+    #---------------------------------------------------------------------------
     print(f"Starting ZBridge Deployment for {HLQ}")
 
     # --- STEP 1: CLEANUP FIRST ---
