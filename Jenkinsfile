@@ -29,7 +29,7 @@ pipeline {
                     script {
                         if (isUnix()) {
                             // Linux / Mac
-                            sh 'python3 scripts/build_and_run.py || python scripts/build_and_run.py'
+                            sh 'python3 scripts/build_and_run.py'
                         } else {
                             // Windows
                             bat 'python scripts\\build_and_run.py'
