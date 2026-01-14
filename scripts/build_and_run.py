@@ -113,6 +113,7 @@ def main():
 
     # JCL Execution Pipeline
     pipeline = [
+        (f"{JCL_DIR}/load_vsam.jcl", "LOAD_VSAM"),
         (f"{JCL_DIR}/compile_static.jcl", "BUILD_STATIC"),
         (f"{JCL_DIR}/compile_calc.jcl", "BUILD_DYNAMIC"),
         (f"{JCL_DIR}/compile_alert.jcl", "BUILD_ALERT"),

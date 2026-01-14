@@ -42,3 +42,4 @@ def generate_transactions(count=100):
     print(f"Success: 100 records generated with varying T-CODEs (A, B, C).")
 
 if __name__ == "__main__":
+    generate_transactions(100)
