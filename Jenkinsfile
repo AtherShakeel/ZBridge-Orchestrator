@@ -6,15 +6,10 @@ pipeline {
         ansiColor('xterm')
     }
 
-    environment {
-        // Mapping Jenkins Vault credentials to environment variables
-        MF_CREDS = credentials('mainframe-auth')
-    }
-
     stages {
         stage('Pull from GitHub') {
             steps {
-                echo 'Pulling fresh zBridge-Orchestrator Code...'
+                echo 'Pulling fresh zBridge-Orchestrator code...'
                 git branch: 'main',
                     credentialsId: 'github-auth',
                     url: 'https://github.com/AtherShakeel/zBridge-Orchestrator'
@@ -24,15 +19,28 @@ pipeline {
         stage('Execute ZBridge-Orchestrator') {
             steps {
                 echo 'Starting Mainframe Build, Run, and VSAM Validation...'
-                // Expose credentials to Python script
-                withEnv(["MF_USER=${MF_CREDS_USR}", "MF_PASS=${MF_CREDS_PSW}"]) {
+
+                // Securely pass credentials to the script
+                withCredentials([usernamePassword(
+                    credentialsId: 'mainframe-auth',
+                    usernameVariable: 'MF_USER',
+                    passwordVariable: 'MF_PASS'
+                )]) {
                     script {
                         if (isUnix()) {
-                            // Linux / Mac
-                            sh 'python3 scripts/build_and_run.py'
+                            // Linux / macOS
+                            try {
+                                sh 'python3 scripts/build_and_run.py'
+                            } catch (err) {
+                                error "Python script failed on Unix: ${err}"
+                            }
                         } else {
                             // Windows
-                            bat 'python scripts\\build_and_run.py'
+                            try {
+                                bat 'python scripts\\build_and_run.py'
+                            } catch (err) {
+                                error "Python script failed on Windows: ${err}"
+                            }
                         }
                     }
                 }
@@ -42,7 +50,7 @@ pipeline {
 
     post {
         always {
-            echo 'zBridge-Orchestrator Pipeline finished. Archiving Logs...'
+            echo 'zBridge-Orchestrator pipeline finished. Archiving logs...'
             archiveArtifacts artifacts: 'logs/*.log', allowEmptyArchive: true
         }
         failure {

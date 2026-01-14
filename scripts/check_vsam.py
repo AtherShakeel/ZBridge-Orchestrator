@@ -37,7 +37,9 @@ def verify_vsam_content(auth_token="", hlq="Z88264"):
 
             if records:
                 print(f"Successfully extracted {len(records)} records.")
-                print(f"first record : {records[0]}")
+                print("Top ten records:")
+                for i, record in enumerate(records[:10], 1):
+                    print(f"{i}: {record}")
                 return True
             else:
                 print("DEBUG: Regex failed. Here is a sample line from stdout:")
