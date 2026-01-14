@@ -7,8 +7,8 @@ pipeline {
     }
 
     environment {
+        // Mapping Jenkins Vault credentials to environment variables
         MF_CREDS = credentials('mainframe-auth')
-        GIT_CREDS = credentials('github-auth')
     }
 
     stages {
@@ -24,8 +24,18 @@ pipeline {
         stage('Execute ZBridge-Orchestrator') {
             steps {
                 echo 'Starting Mainframe Build, Run, and VSAM Validation...'
-                // Use 'bat' for Windows and pass credentials as arguments just like your last project
-                bat "python scripts/build_and_run.py --user %MF_CREDS_USR% --pass %MF_CREDS_PSW%"
+                // Expose credentials to Python script
+                withEnv(["MF_USER=${MF_CREDS_USR}", "MF_PASS=${MF_CREDS_PSW}"]) {
+                    script {
+                        if (isUnix()) {
+                            // Linux / Mac
+                            sh 'python3 scripts/build_and_run.py || python scripts/build_and_run.py'
+                        } else {
+                            // Windows
+                            bat 'python scripts\\build_and_run.py'
+                        }
+                    }
+                }
             }
         }
     }
@@ -33,8 +43,10 @@ pipeline {
     post {
         always {
             echo 'zBridge-Orchestrator Pipeline finished. Archiving Logs...'
-            // This ensures we can find those specific log files you asked about
             archiveArtifacts artifacts: 'logs/*.log', allowEmptyArchive: true
+        }
+        failure {
+            echo 'FAILURE: Check the archived logs in the Build Artifacts section.'
         }
     }
 }
