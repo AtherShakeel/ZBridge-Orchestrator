@@ -1,0 +1,154 @@
+
+👉 **Professional advice**: do NOT change linux username now.
+
+---
+
+## If you *really* want to change it later (for knowledge)
+
+I’ll keep this high-level (don’t do it now):
+
+```bash
+sudo usermod -l newusername oldusername
+sudo usermod -d /home/newusername -m newusername
+```
+
+Plus:
+
+* update groups
+* update WSL default user
+* possibly re-login / restart WSL
+
+Again: **not needed now**.
+
+---
+
+## 2️⃣ CHECKPOINT SUMMARY (SAVE THIS)
+
+Below is your **official checkpoint**.
+I strongly recommend you copy & save this.
+
+---
+
+### 📌 ZBridge-Orchestrator — Checkpoint Summary
+
+#### 👤 Background
+
+* Learning **Mainframe Modernization & DevOps**
+* Using:
+
+  * COBOL + JCL
+  * Zowe Explorer & Zowe CLI
+  * Python automation
+  * GitHub
+  * Jenkins CI/CD
+
+#### 🧩 Projects completed
+
+1. **Mainframe-DevOps**
+2. **ZBridge-Orchestrator**
+
+#### ⚙️ Current Automation Flow
+
+```
+GitHub push
+   ↓
+Jenkins pipeline
+   ↓
+Python build_and_run.py
+   ↓
+Zowe CLI
+   ↓
+z/OS compile, run, VSAM validation
+   ↓
+Logs archived in Jenkins
+```
+
+#### 🖥️ Local Environment
+
+* OS: Windows
+* Editor: VS Code
+* Shells used:
+
+  * Git Bash (earlier)
+  * WSL Ubuntu (now)
+* WSL Status:
+
+  * Installed
+  * Working
+  * Current user: `atheronlinux`
+  * Current home: `/home/atheronlinux`
+
+#### 🧪 Jenkins Status
+
+* Jenkins running on Windows
+* `bat` works
+* `sh` fixed by adding Git `sh.exe` to **System PATH**
+* Secure credentials handling fixed using `withCredentials`
+
+#### 🔐 Credentials
+
+* GitHub credentials configured
+* Mainframe credentials stored in Jenkins (`mainframe-auth`)
+* Insecure Groovy interpolation warning resolved
+
+#### 🎯 Current Goal
+
+* Introduce **Ansible** into ZBridge-Orchestrator
+* Learn **industry-style mainframe automation**
+* Gradually shift from:
+
+  * Python/Zowe scripts
+    → Ansible playbooks
+* WITHOUT breaking existing pipeline
+
+#### 📍 Where we stopped
+
+* WSL Ubuntu opened successfully
+* Switched from `/mnt/c/...` to:
+
+  ```
+  /home/atheronlinux
+  ```
+* Ready to:
+
+  * create Linux workspace
+  * clone repo inside WSL
+  * install Ansible
+
+#### ⏭️ Next Immediate Steps
+
+1. Create workspace in WSL:
+
+   ```bash
+   mkdir -p ~/workspace
+   cd ~/workspace
+   ```
+2. Clone repo:
+
+   ```bash
+   git clone https://github.com/AtherShakeel/ZBridge-Orchestrator.git
+   ```
+3. Install Ansible
+4. Install `ibm.ibm_zos_core`
+5. Write first Ansible playbook:
+
+   * upload COBOL source to PDS
+
+---
+
+## 3️⃣ Next action (when ready)
+
+Once you’ve saved the checkpoint:
+
+👉 Run:
+
+```bash
+mkdir -p ~/workspace
+cd ~/workspace
+```
+
+Then reply:
+
+> **“Checkpoint saved. I’m in ~/workspace.”**
+
+We’ll continue — step by step, no confusion, no rush.
