@@ -12,8 +12,8 @@
 
        PROCEDURE DIVISION USING LOAN-RECORD.
        0000-MAIN.
-      * SIMPLE BUSINESS RULE: If Amount > 500,000, mark as 'R'eview
-           IF L-LOAN-AMOUNT > 500000.00
+      * SIMPLE BUSINESS RULE: If Amount > 400,000, mark as 'R'eview
+           IF L-LOAN-AMOUNT > 400000.00
               MOVE 'R' TO L-LOAN-STATUS
            ELSE
               MOVE 'A' TO L-LOAN-STATUS
