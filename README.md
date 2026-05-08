@@ -16,6 +16,15 @@
 ![Stars](https://img.shields.io/github/stars/AtherShakeel/ZBridge-Orchestrator?style=social)
 ![Forks](https://img.shields.io/github/forks/AtherShakeel/ZBridge-Orchestrator?style=social)
 
+Educational / Portfolio Project Disclaimer
+
+This repository is an independently developed educational and portfolio project created in personal lab environments for learning and demonstration purposes.
+
+It does not contain proprietary employer/client code, confidential business logic, production datasets, or internal enterprise assets. All workflows, datasets, pipelines, naming conventions, and configurations used in this repository are synthetic examples designed to simulate real-world z/OS modernization and DevOps scenarios.
+
+The objective of this project is to demonstrate hands-on understanding of mainframe automation, CI/CD concepts, Jenkins, Zowe, COBOL deployment workflows, and modernization practices within a controlled personal environment.
+
+
 ZBridge-Orchestrator is a Python-based automation suite for mainframe DevOps. It manages the end-to-end lifecycle of COBOL applications on IBM z/OS — from environment setup and source code deployment to compilation, execution, and final VSAM data validation.
 
 ---
